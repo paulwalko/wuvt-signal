@@ -9,7 +9,7 @@ from signald import Signal
 
 s = Signal(os.environ["SIGNAL_NUMBER"])
 
-@s.chat_handler(".wuvt")#re.compile(".*?(wuvt).*?"))
+@s.chat_handler(re.compile("^[\.\/]wuvt.*", re.IGNORECASE))
 def wuvt(message, match):
     r = requests.get('https://www.wuvt.vt.edu/playlists/latest_track', headers={'Accept': "application/json"})
     trackinfo = r.json()
@@ -31,7 +31,7 @@ def wuvt(message, match):
 def divide(input, by):
     return (input // by), (input % by)
 
-@s.chat_handler(".yi")
+@s.chat_handler(re.compile("^[\.\/]yi.*", re.IGNORECASE))
 def yi(message, match):
     quadraels, remainder = divide(int(time.time()), 1753200)
     raels = quadraels * 4
